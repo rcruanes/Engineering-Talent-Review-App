@@ -1,42 +1,56 @@
 CREATE TABLE users (
-    u_username  varchar(152) not null,
-    u_email       varchar(50) not null,
-    u_password  varchar(50) not null,
-    u_income     decimal(10,0) not null,
-    u_ethnicity        varchar(55) not null,
-    u_race       varchar(55) not null,
-    u_age       decimal(3,0) not null,
-    u_gender        varchar(55) not null,
-    u_sex        varchar(55) not null,
-    u_gpa  decimal(3,0) not null,
-    u_schoolname       varchar(55) not null,
-    u_extracurriculars    varchar(152)
+    u_lastname  varchar(255) not null,
+    u_firstname       varchar(255) not null,
+    u_depname  varchar(255) not null,
+    u_job     varchar(255) not null,
+    u_email        varchar(255) not null,
 )
-CREATE TABLE applications (
-    a_appkey     decimal(8,0) not null,
-    a_username        varchar(55) not null,
-    a_schoolname     varchar(55) not null,
-    a_degreekey      varchar(55) not null
+CREATE TABLE education (
+    e_schoolname     decimal(8,0) not null,
+    e_location        varchar(55) not null,
+    e_degree     varchar(55) not null,
+    e_program      varchar(55) not null
+    e_gradyear      varchar(55) not null
 );
-CREATE TABLE schools (
-    s_schoolname     varchar(55) not null,
-    s_city     varchar(55) not null,
-    s_country   varchar(55) not null,
-    s_finaid    bit(1) not null,
-    s_type  varchar(55) not null
+CREATE TABLE profHistory (
+    p_employer     varchar(55) not null,
+    p_title    varchar(55) not null,
+    p_startYear   varchar(55) not null,
+    p_endyear    varchar(55) not null,
+    p_function  varchar(55) not null
+    p_responsibility  varchar(55) not null
 )
-CREATE TABLE major (
-    m_degreekey varchar(55) not null,
-    m_schoolname   varchar(55) not null,
-    m_degree     varchar(55) not null,
-    m_type       varchar(55)
+CREATE TABLE type (
+    t_type varchar(55) not null,
 )
-CREATE TABLE essays (
-    es_essay       varchar(152) not null,
-    e_appkey       decimal(9,0) not null
+CREATE TABLE individual (
+    i_impact       varchar(152) not null,
+    i_patent       decimal(9,0) not null
+    i_performance       decimal(9,0) not null
+    i_responsibility       decimal(9,0) not null
+    i_future       decimal(9,0) not null
+)
+
+CREATE TABLE project (
+    pr_impact       varchar(152) not null,
+    pr_contributions       decimal(9,0) not null
+    pr_compare       decimal(9,0) not null
+    pr_responsibility       decimal(9,0) not null
+    pr_future       decimal(9,0) not null
+)
+CREATE TABLE people (
+    pe_impact       varchar(152) not null,
+    pe_contributions       decimal(9,0) not null
+    pe_compare       decimal(9,0) not null
+    pe_responsibility       decimal(9,0) not null
+    pe_future       decimal(9,0) not null
+)
+CREATE TABLE awards (
+    a_awards    varchar(55) not null
+)
+CREATE TABLE activities (
+    ac_activities    varchar(55) not null
 )
 CREATE TABLE recommendations (
-    r_professors    varchar(55) not null,
-    r_employment     varchar(55) not null,
-    r_appkey     decimal(8,0) not null
-);
+    r_recommendations    varchar(55) not null
+)
