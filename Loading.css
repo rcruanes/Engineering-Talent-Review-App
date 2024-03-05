@@ -1,0 +1,19 @@
+/* Loading.css */
+.loading-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black; /* Set background color to black */
+    z-index: 9999; /* Set a high z-index to ensure it's above other elements */
+  }
+  
+  .loading-gif {
+    max-width: 200px; /* Adjust max-width as needed */
+    max-height: 200px; /* Adjust max-height as needed */
+  }
+  

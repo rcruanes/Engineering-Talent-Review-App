@@ -1,0 +1,88 @@
+/* TalentReviewForm.css */
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+/* Define the font-family for the entire form */
+.form-container,
+label,
+input,
+select,
+textarea,
+button {
+  font-family: 'Merriweather Sans', sans-serif; /* Set the font family */
+}
+
+/* Main container styles */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+ /* Western Digital logo */
+  background-size: 105px;
+  background-repeat: repeat;
+  min-height: 100vh; /* Ensure the form container covers at least the viewport height */
+  padding: 20px; /* Add padding to the form container */
+  box-sizing: border-box; /* Include padding in height calculation */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Form styles */
+form {
+  max-width: 400px; /* Adjust form width as needed */
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Form group styles */
+.form-group {
+  margin-bottom: 50px; /* Increase margin to add more spacing between questions */
+}
+
+/* Label styles */
+label {
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 30px;
+  font-size: 22px; /* Adjust font size for labels */
+  color: #333; /* Adjust text color as needed */
+  font-weight: bold; /* Adjust font weight as needed */
+}
+
+/* Input, select, textarea styles */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 12px; /* Adjust font size for inputs, selects, and textareas */
+  color: #555; /* Adjust text color as needed */
+}
+
+/* Button styles */
+button {
+  padding: 10px 16px;
+  margin-top: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px; /* Adjust font size for buttons */
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Add more styles for other text elements as needed */
