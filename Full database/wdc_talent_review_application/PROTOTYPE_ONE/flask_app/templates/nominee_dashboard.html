@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nominator Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+
+        <div class="row">
+            <div class="d-flex align items-center justify-content-between mx-5">
+                <h2>Welcome</h2>
+                <div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <a href="/nominee/new">+ New Nominee Form </a>
+        </div>
+        <div>
+            <a class="text-danger" href="/user/logout"> Logout </a>
+        </div>
+
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nominee Name</th>
+                        <th>Nominator</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for nominee in all_nominees_nominator %}
+                        <tr>
+                            <td>{{ nominee.first_name}}</td>
+                            <td>{{ nominee.nominator.full_name }}</td>
+                            <td>
+                                <a href="/nominee/{{nominee.id}}/edit">Edit</a>
+                                <a class="text-danger" href="/nominee/{{nominee.id}}/delete">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+        </div>
+    </div>
+</body>
+</html>

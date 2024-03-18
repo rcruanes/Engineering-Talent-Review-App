@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="d-flex justify-content-around">
+        <form action="/user/create" method="post" class="col-4 p-4 bg-dark text-light">
+            <h2 class="text-primary">Register</h2>
+            <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input type="text" name="first_name" id="first_name" class="form-control">
+                {% for message in get_flashed_messages(category_filter=["err_users_first_name_register"]) %}
+                <p class="alert alert-danger"> {{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input type="text" name="last_name" id="last_name" class="form-control">
+                {% for message in get_flashed_messages(category_filter=["err_users_last_name_register"]) %}
+                <p class="alert alert-danger"> {{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" name="email" id="email" class="form-control">
+                {% for message in get_flashed_messages(category_filter=["err_users_email_register"]) %}
+                <p class="alert alert-danger"> {{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="pw">Password:</label>
+                <input type="password" name="pw" id="pw" class="form-control">
+                {% for message in get_flashed_messages(category_filter=["err_users_pw_register"]) %}
+                <p class="alert alert-danger"> {{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="confirm_pw">Confirm Password:</label>
+                <input type="password" name="confirm_pw" id="confirm_pw" class="form-control">
+                {% for message in get_flashed_messages(category_filter=["err_users_confirm_pw_register"]) %}
+                <p class="alert alert-danger"> {{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="role">User Role:</label>
+                <select name="role" id="role" class="form-control">
+                    <option value="">Select Role</option>
+                    {% for role in role_options %}
+                        <option value="{{ role }}">{{ role }}</option>
+                    {% endfor %}
+                </select>
+                {% for message in get_flashed_messages(category_filter=["err_users_role_register"]) %}
+                <p class="alert alert-danger"> {{ message }}</p>
+                {% endfor %}
+            </div>
+            <input type="submit" value="Register" class="btn btn-primary">
+        </form>
+
+
+
+        <form action="/user/login" method="post" class="col-4 p-4 bg-dark text-light">
+            <h2 class="text-success">Login</h2>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" name="email" id="email" class="form-control">
+                {% for message in get_flashed_messages(category_filter=["err_users_email_login"]) %}
+                <p class="alert alert-danger"> {{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="pw" id="pw" class="form-control">
+                {% for message in get_flashed_messages(category_filter=["err_users_pw_login"]) %}
+                <p class="alert alert-danger"> {{ message }}</p>
+                {% endfor %}
+            </div>
+            <input type="submit" value="Login" class="btn btn-success">
+        </form>
+    </div>
+</body>
+</html>
