@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommender Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <div class="navbar navbar-dark bg-dark box-shadow">
+          <div class="container d-flex justify-content-between">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+              {% for user in all_users %}
+                {% if user.id == session['uuid'] %}
+                <strong>Welcome Recommender: {{user.full_name}} </strong>
+                {% endif %}
+              {% endfor %}
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <div>
+        <a class="text-success" href="/recommend/new">+ Recommend New Nominee Form </a>
+    </div>
+      <div>
+          <a href="/dashboard">Back</a>
+      </div>
+      <div>
+          <a class="text-danger" href="/user/logout"> Logout </a>
+      </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="d-flex align items-center justify-content-between mx-5">
+                <div>
+                    <h2>List of Nominees to Recommend</h2>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                      <th>Nominee Name</th>
+                      <th>Nominator</th>
+                      <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    {% for nominee in all_nominees_nominator %}
+                      <td>{{ nominee.first_name}} {{ nominee.last_name}}</td>
+                      <td>{{ nominee.nominator.full_name }}</td>
+                      <td>
+                        <a class="btn btn-success" href="/nominee/{{nominee.id}}/info">View</a>
+                        <a  class="btn btn-warning" href="/recommend/new">+ Recommend</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+        </div>
+    </div>
+</body>
+</html>
+

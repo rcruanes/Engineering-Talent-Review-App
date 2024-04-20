@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Nominee</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- linking a css style sheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+    <header>
+        <div class="navbar navbar-dark bg-dark box-shadow">
+          <div class="container d-flex justify-content-between">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+              <strong>Nominee: {{ nominee.full_name }}</strong>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <main role="main">
+
+        <div class="album py-5 bg-light">
+          <div class="container">
+            <div class="album py-5 bg-light">
+              <div class="container">
+
+                    <div>
+                        <h4>Nominee Information</h4>
+                        <ul>
+                            <li><strong>First Name:</strong> {{ nominee.first_name }}</li>
+                            <li><strong>Last Name:</strong> {{ nominee.last_name }}</li>
+                            <li><strong>Department Name:</strong> {{ nominee.department_name }}</li>
+                            <li><strong>Job Category:</strong> {{ nominee.job_category }}</li>
+                            <li><strong>Email:</strong> {{ nominee.email }}</li>
+                            <li><strong>Nominator Qualifications and Attributes:</strong></li>
+                            {{ nominee.nominator_qualification }}
+                        </ul>
+                    </div>
+                    <hr class="mb-4">
+                        {% if user_role == 'Nominator' %}
+                            <a class="btn btn-primary btn-lg btn-block" href="/nominee/dashboard">Nominator Dashboard</a>
+                        {% elif user_role == 'Recommender' %}
+                            <a class="btn btn-primary btn-lg btn-block" href="/recommender/dashboard">Recommender Dashboard</a>
+                        {% elif user_role == 'ReviewCommittee' %}
+                            <a class="btn btn-primary btn-lg btn-block" href="/review/dashboard">Review Committee Dashboard</a>
+                        {% else %}
+                            <!-- Default link if user role doesn't match any specific role -->
+                            <a class="btn btn-primary btn-lg btn-block" href="/">Go Back</a>
+                        {% endif %}
+              </div>
+            </div>
+
+      </main>
+</body>
+</html>

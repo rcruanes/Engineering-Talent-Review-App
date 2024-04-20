@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+
+
+        <div class="row">
+            <div class="d-flex justify-content-around">
+            {% for user in all_users %}
+                {% if user.id == session['uuid'] %}
+                <h2>Welcome: {{ user.full_name }}</h2>
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+
+        <a class="text-danger" href="/user/logout"> Logout </a>
+
+        <div class="d-flex justify-content-center">
+            <h1><a href="/nominee/dashboard"> Nominator Dashboard </a></h1>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <h1><a href="/recommender/dashboard"> Recommender Dashboard</a></h1>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <h1><a href="/review/dashboard"> Review Committee Dashboard</a></h1>
+        </div>
+
+
+
+    </div>
+</body>
+</html>

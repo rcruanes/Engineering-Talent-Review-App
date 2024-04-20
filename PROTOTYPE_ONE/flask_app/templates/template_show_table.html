@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Nominee</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- linking a css style sheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+    <header>
+        <div class="navbar navbar-dark bg-dark box-shadow">
+          <div class="container d-flex justify-content-between">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+              <strong>Nominee Info</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main role="main">
+
+        <div class="album py-5 bg-light">
+          <div class="container">
+            <div class="album py-5 bg-light">
+              <div class="container">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Dept Name</th>
+                            <th>Job Category</th>
+                            <th>Email</th>
+                            <th>Nominator qualifications and attributes</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                              <td>{{nominee.first_name}}</td>
+                              <td>{{nominee.last_name}}</td>
+                              <td>{{nominee.department_name}}</td>
+                              <td>{{nominee.job_category}}</td>
+                              <td>{{nominee.email}}</td>
+                              <td>{{nominee.nominator_qualification}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="mb-3">Your Information</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            First Name: Michael
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            Last Name: Choi
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        Your Student ID: 123-456-7890
+                    </div>
+
+                    <hr class="mb-4">
+                    <a class="btn btn-primary btn-lg btn-block" href="/nominee/dashboard">Go Back</a>
+
+              </div>
+            </div>
+
+      </main>
+</body>
+</html>

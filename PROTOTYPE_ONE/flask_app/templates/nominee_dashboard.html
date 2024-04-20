@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nominator Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- linking a css style sheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            {% for user in all_users %}
+              {% if user.id == session['uuid'] %}
+              <strong>Welcome: {{user.full_name}} </strong>
+              {% endif %}
+            {% endfor %}
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+      <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="d-flex align items-center justify-content-between mx-5">
+                    <div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <a class="text-success" href="/nominee/new">+ New Nominee Form </a>
+            </div>
+            <div class="col-md-4">
+                <a class="text-warning" href="/dashboard">Back |</a>
+                <a class="text-danger" href="/user/logout"> Logout </a>
+            </div>
+
+            <div class="row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nominee Name</th>
+                            <th>Nominator</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for nominee in all_nominees_nominator %}
+                        {% if nominee.nominator.id == session['uuid'] %}
+                        <tr>
+                            <td>{{ nominee.full_name}}</td>
+                            <td>{{ nominee.nominator.full_name }}</td>
+                            <td>
+                                <a href="/nominee/{{nominee.id}}/edit">Edit</a>
+                                <a class="text-danger" href="/nominee/{{nominee.id}}/delete">Delete</a>
+                                <a href="/nominee/{{nominee.id}}/info">View</a>
+                            </td>
+                        </tr>
+                          {% endif %}
+                        {% endfor %}
+                    </tbody>
+            </div>
+          </div>
+      </div>
+    </main>
+</body>
+</html>
+

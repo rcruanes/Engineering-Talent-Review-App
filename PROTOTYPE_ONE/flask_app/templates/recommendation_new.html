@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommend New Nominee</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- linking a css style sheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="col-14 p-2">
+            <legend class="d-flex justify-content-around">Recommend Nominee Form</legend>
+        </div>
+
+
+        <div class="d-flex justify-content-center">
+            <form action="/recommendation/create" method="post" class="bg-light text-dark" id="recommendationForm">
+                <div class="d-flex justify-content-center">
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="all_nominees">Select Nominee:</label>
+                            <select name="nominee_id" id="all_nominees" class="form-control">
+                                <option value="selected_nominee">Select Nominee</option>
+                                {% for nominee in all_nominees %}
+                                    <option value="{{ nominee.id }}">{{ nominee.full_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+
+                        <!-- using checkboxes for multiple selections -->
+                        <div class="form-group"  >
+                            <label>Work Contributions:</label><br>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="work_contributions[]" id="individual_contributor" value="individual_contributor">
+                                <label class="form-check-label" for="individual_contributor">
+                                    Individual Contributor
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="work_contributions[]" id="project_manager" value="project_manager">
+                                <label class="form-check-label" for="project_manager">
+                                    Project Manager
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="work_contributions[]" id="people_manager" value="people_manager">
+                                <label class="form-check-label" for="people_manager">
+                                    People Manager
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <div id="questions" style="display: none;">
+                            <!-- Questions for Individual Contributor -->
+                            <div class="form-group" id="individual_contributor_questions">
+                                <label for="ic_q1">PERSONALLY, became aware of the importance of his/her extraordinary accomplishments and their impact on the company.  (Limit 100 words)</label>
+                                <input type="text" name="ic_q1" id="ic_q1" class="form-control">
+                                <!-- Questions for Individual Contributor -->
+                                <div class="form-group">
+                                    <label for="ic_q2">List technical patents; technical reports and presentations; development of products, applications and systems; and application of facilities and services.   The evidence to verify the contribution. (limit 5 sections each section limited to 300 words)</label>
+                                    <input type="text" name="ic_q2" id="ic_q2" class="form-control">
+                                </div>
+                                <!-- Questions for Individual Contributor -->
+                                <div class="form-group">
+                                    <label for="ic_q3">Comparing with people in this position (300 words)</label>
+                                    <input type="text" name="ic_q3" id="ic_q3" class="form-control">
+                                </div>
+                                <!-- Questions for Individual Contributor -->
+                                <div class="form-group">
+                                    <label for="ic_q4">What’s the expansion of job responsibility (100 words)</label>
+                                    <input type="text" name="ic_q4" id="ic_q4" class="form-control">
+                                </div>
+                                <!-- Questions for Individual Contributor -->
+                                <div class="form-group">
+                                    <label for="ic_q5">What is the future development area, what’s manager’s plan for the career development (100 words)</label>
+                                    <input type="text" name="ic_q5" id="ic_q5" class="form-control">
+                                </div>
+                            </div>
+
+                            <!-- Questions for Project Manager -->
+                            <div class="form-group" id="project_manager_questions" style="display: none;" >
+                                <label for="pm_question">Question for Project Manager:</label>
+                                <input type="text" name="pm_question" id="pm_question" class="form-control">
+                            </div>
+
+                            <!-- Questions for People Manager -->
+                            <div class="form-group" id="people_manager_questions" style="display: none;" >
+                                <label for="pep_question">Question for People Manager:</label>
+                                <input type="text" name="pep_question" id="pep_question" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">Submit New Nominee</button>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-warning" href="/recommender/dashboard">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- linking a javascript file -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
