@@ -1,0 +1,47 @@
+/* General Body Styling */
+body {
+    background-color: #343a40; /* Dark grey background */
+    color: #f8f9fa; /* Light color for text */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern, readable font */
+}
+
+/* Styling for the container to center the form on the page */
+.container {
+    padding-top: 50px; /* Space from the top */
+}
+
+/* Card styling for the form */
+.form-card {
+    background-color: #212529; /* Very dark background for the form */
+    border-radius: 0.25rem; /* Slight rounding of corners */
+}
+
+/* Header of the form card */
+.card-header {
+    background: linear-gradient(45deg, #6a5acd, #ff1493, #00bfff); /* Gradient from dark blue to pink */
+    color: #ffffff; /* White text for contrast */
+}
+
+/* Inputs within the form to have slightly lighter background */
+.form-control {
+    background-color: #495057; /* Dark gray for inputs */
+    color: #f8f9fa; /* Light color for text inside inputs */
+    border: 1px solid #6c757d; /* Slightly lighter border for inputs */
+}
+
+/* Button styles */
+.btn-primary {
+    background-color: #6a5acd; /* Purple background for primary buttons */
+    border: none; /* No border */
+}
+
+.btn-primary:hover {
+    background-color: #ff1493; /* Pink background on hover */
+}
+
+/* Style for error messages to make them stand out */
+.alert-danger {
+    background-color: #dc3545; /* Red background for errors */
+    color: #ffffff; /* White text for readability */
+    border-radius: 0.25rem; /* Rounded corners for the alert boxes */
+}

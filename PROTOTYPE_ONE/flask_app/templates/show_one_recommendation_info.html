@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Recommendation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <!-- Linking a custom CSS stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/show_nominee_info.css') }}">
+</head>
+<body class="nominee-info-page">
+    <header>
+        <nav class="navbar navbar-dark box-shadow">
+            <div class="container d-flex justify-content-between">
+                <a href="/nominee/dashboard" class="navbar-brand d-flex align-items-center">
+                    {% for user in all_users %}
+                        {% if user.id == session['uuid'] %}
+                            <strong>Hello Recommender: {{ user.full_name }} </strong>
+                        {% endif %}
+                    {% endfor %}
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                Work Contribution(s):  {{nominee.full_name }} 
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong></strong></p>
+            </div>
+        </div>
+        {% if "individual_contributor" in current_contributions %}
+        <div class="card">
+            <div class="card-header">
+                Individual Contributions
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>PERSONALLY, became aware of the importance of his/her extraordinary accomplishments and their impact on the company:</strong> {{ ind_contribution.ic_q1 }}</p>
+                <p class="card-text"><strong>List technical patents; technical reports and presentations; development of products, applications and systems; and application of facilities and services:</strong> {{ ind_contribution.ic_q2 }}</p>
+                <p class="card-text"><strong>Comparing with people in this position:</strong> {{ ind_contribution.ic_q3 }}</p>
+                <p class="card-text"><strong>What’s the expansion of job responsibility:</strong> {{ ind_contribution.ic_q4 }}</p>
+                <p class="card-text"><strong>What is the future development area, what’s manager’s plan for the career development:</strong> {{ ind_contribution.ic_q5 }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if "project_manager" in current_contributions %}
+        <div class="card mt-4">
+            <div class="card-header">
+                Project Manager Contributions
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>PERSONALLY, became aware of the importance of his/her extraordinary accomplishments and their impact on the company:</strong> {{ prj_contribution.prjmc_q1 }}</p>
+                <p class="card-text"><strong>List technical patents; technical reports and presentations; development of products, applications and systems; and application of facilities and services:</strong> {{ prj_contribution.prjmc_q2 }}</p>
+                <p class="card-text"><strong>Comparing with people in this position:</strong> {{ prj_contribution.prjmc_q3 }}</p>
+                <p class="card-text"><strong>What’s the expansion of job responsibility:</strong> {{ prj_contribution.prjmc_q4 }}</p>
+                <p class="card-text"><strong>What is the future development area, what’s manager’s plan for the career development:</strong> {{ prj_contribution.prjmc_q5 }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if "people_manager" in current_contributions %}
+        <div class="card mt-4">
+            <div class="card-header">
+                People Manager Contribution
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>PERSONALLY, became aware of the importance of his/her extraordinary accomplishments and their impact on the company:</strong> {{ ppl_contribution.pplmc_q1 }}</p>
+                <p class="card-text"><strong>List technical patents; technical reports and presentations; development of products, applications and systems; and application of facilities and services:</strong> {{ ppl_contribution.pplmc_q2 }}</p>
+                <p class="card-text"><strong>Comparing with people in this position:</strong> {{ ppl_contribution.pplmc_q3 }}</p>
+                <p class="card-text"><strong>What’s the expansion of job responsibility:</strong> {{ ppl_contribution.pplmc_q4 }}</p>
+                <p class="card-text"><strong>What is the future development area, what’s manager’s plan for the career development:</strong> {{ ppl_contribution.pplmc_q5 }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="my-4">
+            <a class="btn btn-primary btn-lg btn-block" href="/recommender/dashboard">Back to Dashboard</a>
+        </div>
+    </main>
+</body>
+</html>

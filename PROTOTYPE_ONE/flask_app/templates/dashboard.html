@@ -4,39 +4,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <!-- Link to your custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
 </head>
 <body>
     <div class="container">
-
-
+        <!-- Greeting and User Info -->
         <div class="row">
-            <div class="d-flex justify-content-around">
-            {% for user in all_users %}
+            <div class="col-12 mb-5">
+                {% for user in all_users %}
                 {% if user.id == session['uuid'] %}
-                <h2>Welcome: {{ user.full_name }}</h2>
+                <h2 class="text-center" style="color: #f8f9fa;">Welcome, {{ user.full_name }}</h2>
                 {% endif %}
-            {% endfor %}
+                {% endfor %}
             </div>
         </div>
 
-        <a class="text-danger" href="/user/logout"> Logout </a>
-
-        <div class="d-flex justify-content-center">
-            <h1><a href="/nominee/dashboard"> Nominator Dashboard </a></h1>
+        <!-- Logout Link -->
+        <div class="row">
+            <div class="col-12 mb-4">
+                <a href="/user/logout" class="btn btn-primary btn-block">Logout</a>
+            </div>
         </div>
 
-        <div class="d-flex justify-content-center">
-            <h1><a href="/recommender/dashboard"> Recommender Dashboard</a></h1>
+        <!-- Dashboard Links -->
+        <div class="card form-card">
+            <div class="card-header">
+                Access Your Dashboard
+            </div>
+            <div class="card-body">
+                <a href="/nominee/dashboard" class="btn btn-primary btn-block mb-3">Nominator Dashboard</a>
+                <a href="/recommender/dashboard" class="btn btn-primary btn-block mb-3">Recommender Dashboard</a>
+                <a href="/review/dashboard" class="btn btn-primary btn-block mb-3">Review Committee Dashboard</a>
+            </div>
         </div>
-
-        <div class="d-flex justify-content-center">
-            <h1><a href="/review/dashboard"> Review Committee Dashboard</a></h1>
-        </div>
-
-
-
     </div>
 </body>
 </html>

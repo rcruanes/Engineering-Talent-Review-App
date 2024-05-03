@@ -5,9 +5,8 @@ from flask import flash, session, redirect # importing flash, session,
 from functools import wraps #
 import re # importing regax
 
-
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
-DATABASE= "wdc_prototype_full_recommender_one_db"
+DATABASE= "wdc_talent_review_new_final_product_complete_db"
 # creating a list of dictionaries with a for Class(table) User
 class User:
     def __init__( self , data):

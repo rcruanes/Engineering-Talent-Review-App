@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Information</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <!-- Linking a custom CSS stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/show_nominee_info.css') }}">
+</head>
+<body class="nominee-info-page">
+    <header>
+        <nav class="navbar navbar-dark box-shadow">
+            <div class="container d-flex justify-content-between">
+                <a href="/nominee/dashboard" class="navbar-brand d-flex align-items-center">
+                    {% for user in all_users %}
+                        {% if user.id == session['uuid'] %}
+                            <strong>Welcome: {{ user.full_name }} </strong>
+                        {% endif %}
+                    {% endfor %}
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                Nominee Information:
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>First Name:</strong> {{ nominee.nominee_first_name }}</p>
+                <p class="card-text"><strong>Last Name:</strong> {{ nominee.nominee_last_name }}</p>
+                <p class="card-text"><strong>Department Name:</strong> {{ nominee.nominee_department_name }}</p>
+                <p class="card-text"><strong>Job Category:</strong> {{ nominee.nominee_job_category }}</p>
+                <p class="card-text"><strong>Email:</strong> {{ nominee.nominee_email }}</p>
+                <p class="card-text"><strong>Nominator Qualifications and Attributes:</strong> {{ nominee.nominee_nominator_qualification }}</p>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                Nominee Professional History
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>Employer:</strong> {{ nominee.professional_history.employer }}</p>
+                <p class="card-text"><strong>Title:</strong> {{ nominee.professional_history.title }}</p>
+                <p class="card-text"><strong>Start Year:</strong> {{ nominee.professional_history.start_year }}</p>
+                <p the card-text><strong>End Year:</strong> {{ nominee.professional_history.end_year }}</p>
+                <p class="card-text"><strong>Job Function:</strong> {{ nominee.professional_history.principal_job_function }}</p>
+                <p class="card-text"><strong>Responsibility:</strong> {{ nominee.professional_history.principal_responsibility }}</p>
+            </div>
+        </div>
+
+        </div>
+        {% if "individual_contributor" in current_contributions %}
+        <div class="card">
+            <div class="card-header">
+                Individual Contributions
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>PERSONALLY, became aware of the importance of his/her extraordinary accomplishments and their impact on the company:</strong> {{ nominee.ic_q1 }}</p>
+                <p class="card-text"><strong>List technical patents; technical reports and presentations; development of products, applications and systems; and application of facilities and services:</strong> {{ nominee.ic_q2 }}</p>
+                <p class="card-text"><strong>Comparing with people in this position:</strong> {{ nominee.ic_q3 }}</p>
+                <p class="card-text"><strong>What’s the expansion of job responsibility:</strong> {{ nominee.ic_q4 }}</p>
+                <p class="card-text"><strong>What is the future development area, what’s manager’s plan for the career development:</strong> {{ nominee.ic_q5 }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if "project_manager" in current_contributions %}
+        <div class="card mt-4">
+            <div class="card-header">
+                Project Manager Contributions
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>PERSONALLY, became aware of the importance of his/her extraordinary accomplishments and their impact on the company:</strong> {{ nominee.prjmc_q1 }}</p>
+                <p class="card-text"><strong>List technical patents; technical reports and presentations; development of products, applications and systems; and application of facilities and services:</strong> {{ nominee.prjmc_q2 }}</p>
+                <p class="card-text"><strong>Comparing with people in this position:</strong> {{ nominee.prjmc_q3 }}</p>
+                <p class="card-text"><strong>What’s the expansion of job responsibility:</strong> {{ nominee.prjmc_q4 }}</p>
+                <p class="card-text"><strong>What is the future development area, what’s manager’s plan for the career development:</strong> {{ nominee.prjmc_q5 }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if "people_manager" in current_contributions %}
+        <div class="card mt-4">
+            <div class="card-header">
+                People Manager Contribution
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>PERSONALLY, became aware of the importance of his/her extraordinary accomplishments and their impact on the company:</strong> {{ nominee.pplmc_q1 }}</p>
+                <p class="card-text"><strong>List technical patents; technical reports and presentations; development of products, applications and systems; and application of facilities and services:</strong> {{ nominee.pplmc_q2 }}</p>
+                <p class="card-text"><strong>Comparing with people in this position:</strong> {{ nominee.pplmc_q3 }}</p>
+                <p class="card-text"><strong>What’s the expansion of job responsibility:</strong> {{ nominee.pplmc_q4 }}</p>
+                <p class="card-text"><strong>What is the future development area, what’s manager’s plan for the career development:</strong> {{ nominee.pplmc_q5 }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+
+        <!-- Form for submitting rankings -->
+        <form action="/review/create" method="post">
+            <input type="hidden" name="nominee_id" value="{{ nominee.nominee_id }}">
+            <div class="card mt-4">
+                <div class="card-header">
+                    Contribution Rankings
+                </div>
+                <div class="card-body">
+                    <label for="rank_individual_contribution">Individual Contribution Rank:</label>
+                    <select id="rank_individual_contribution" name="rank_individual_contribution" class="form-control">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+
+
+                    <label for="rank_project_lead_contribution">Project Manager Contribution Rank:</label>
+                    <select id="rank_project_lead_contribution" name="rank_project_lead_contribution" class="form-control">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+
+
+                    <label for="rank_people_manager_contribution">People Manager Contribution Rank:</label>
+                    <select id="rank_people_manager_contribution" name="rank_people_manager_contribution" class="form-control">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="my-4">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Submit Rankings</button>
+            </div>
+        </form>
+
+
+        <div class="my-4">
+            <a class="btn btn-primary btn-lg btn-block" href="/review/dashboard">Back to Dashboard</a>
+        </div>
+    </main>
+</body>
+</html>

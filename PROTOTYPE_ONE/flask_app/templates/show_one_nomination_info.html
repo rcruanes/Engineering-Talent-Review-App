@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Nomination</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <!-- Linking a custom CSS stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/show_nominee_info.css') }}">
+</head>
+<body class="nominee-info-page">
+    <header>
+        <nav class="navbar navbar-dark box-shadow">
+            <div class="container d-flex justify-content-between">
+                <a href="/nominee/dashboard" class="navbar-brand d-flex align-items-center">
+                    {% for user in all_users %}
+                        {% if user.id == session['uuid'] %}
+                            <strong>Welcome: {{ user.full_name }} </strong>
+                        {% endif %}
+                    {% endfor %}
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                Nominee Information: {{ nominee.full_name }}
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>First Name:</strong> {{ nominee.first_name }}</p>
+                <p class="card-text"><strong>Last Name:</strong> {{ nominee.last_name }}</p>
+                <p class="card-text"><strong>Department Name:</strong> {{ nominee.department_name }}</p>
+                <p class="card-text"><strong>Job Category:</strong> {{ nominee.job_category }}</p>
+                <p class="card-text"><strong>Email:</strong> {{ nominee.email }}</p>
+                <p class="card-text"><strong>Nominator Qualifications and Attributes:</strong> {{ nominee.nominator_qualification }}</p>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                Nominee Education History
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>College Name:</strong> {{ edu_history.college_name }}</p>
+                <p class="card-text"><strong>Location:</strong> {{ edu_history.location }}</p>
+                <p class="card-text"><strong>Degree:</strong> {{ edu_history.degree }}</p>
+                <p class="card-text"><strong>Program:</strong> {{ edu_history.program }}</p>
+                <p class="card-text"><strong>Graduation Year:</strong> {{ edu_history.graduation_year }}</p>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                Nominee Professional History
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>Employer:</strong> {{ prf_history.employer }}</p>
+                <p class="card-text"><strong>Title:</strong> {{ prf_history.title }}</p>
+                <p class="card-text"><strong>Start Year:</strong> {{ prf_history.start_year }}</p>
+                <p the card-text><strong>End Year:</strong> {{ prf_history.end_year }}</p>
+                <p class="card-text"><strong>Job Function:</strong> {{ prf_history.principal_job_function }}</p>
+                <p class="card-text"><strong>Responsibility:</strong> {{ prf_history.principal_responsibility }}</p>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                Nominator Acheivements
+            </div>
+            <div class="card-body">
+                <p class="card-text"><strong>Nominator Activity Name::</strong> {{ activity_qualification.nominator_activity_name }}</p>
+                <p class="card-text"><strong>Nominator Activity Year::</strong> {{ activity_qualification.nominator_activity_year }}</p>
+                <p class="card-text"><strong>Nominator Activity Description:</strong> {{ activity_qualification.nominator_activity_description }}</p>
+                <p class="card-text"><strong>Nominator Awards Name::</strong> {{ award_qualification.nominator_award_name }}</p>
+                <p class="card-text"><strong>Nominator Awards Year::</strong> {{ award_qualification.nominator_award_year }}</p>
+                <p class="card-text"><strong>Nominator Awards Description:</strong> {{ award_qualification.nominator_award_description }}</p>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                Nominatee Acheivements
+            </div>
+            <div class="card-body">
+                <p the card-text><strong>Nominee Qualification:</strong> {{ activity_qualification.nominee_qualification }}</p>
+                <p class="card-text"><strong>Nominee Activity Name:</strong> {{ activity_qualification.nominee_activity_name }}</p>
+                <p class="card-text"><strong>Nominee Activity Year:</strong> {{ activity_qualification.nominee_activity_year }}</p>
+                <p class="card-text"><strong>Nominee Activity Description:</strong> {{ activity_qualification.nominee_activity_description }}</p>
+                <p class="card-text"><strong>Nominee Awards Name:</strong> {{ award_qualification.nominee_award_name }}</p>
+                <p class="card-text"><strong>Nominee Awards Year:</strong> {{ award_qualification.nominee_award_year }}</p>
+                <p class="card-text"><strong>Nominee Awards Description:</strong> {{ award_qualification.nominee_award_description }}</p>
+            </div>
+        </div>
+
+
+        <div class="my-4">
+            <a class="btn btn-primary btn-lg btn-block" href="/nominee/dashboard">Back to Dashboard</a>
+        </div>
+    </main>
+</body>
+</html>

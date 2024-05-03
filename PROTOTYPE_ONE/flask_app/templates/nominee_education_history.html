@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nominee Education History</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <legend>Nominee Education History Information</legend>
+        <form action="/nominee/create/education" method="post" class="bg-light text-dark">
+            <div class="form-group">
+                <label for="college_name">Nominee College Name</label>
+                <input name="college_name" id="college_name" placeholder="Nominee College Name" class="form-control" type="text">
+                {% for message in get_flashed_messages(category_filter=["err_nominees_college_name_nominator"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                <label for="location">Nominee College Location</label>
+                <input name="location" id="location" placeholder="College location" class="form-control" type="text">
+                {% for message in get_flashed_messages(category_filter=["err_nominees_college_location_nominator"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                <label for="degree">Nominee Degree</label>
+                <input name="degree" id="degree" placeholder="Nominee Degree" class="form-control" type="text">
+                {% for message in get_flashed_messages(category_filter=["err_nominees_degree_nominator"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                <label for="program">Nominee Program</label>
+                <input name="program" id="program" placeholder="Nominee Degree Program" class="form-control" type="text">
+                {% for message in get_flashed_messages(category_filter=["err_nominees_program_nominator"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                <label for="graduation_year">Nominee Graduation Year</label>
+                <input name="graduation_year" id="graduation_year" placeholder="Nominee Graduation Year" class="form-control" type="text">
+                {% for message in get_flashed_messages(category_filter=["err_nominees_graduation_year_nominator"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit New Nominee</button>
+            <a class="btn btn-warning" href="/nominee/dashboard">Back</a>
+        </form>
+    </div>
+</body>
+</html>

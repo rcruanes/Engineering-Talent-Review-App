@@ -34,37 +34,68 @@
 
     <div class="container">
         <div class="row">
-            <div class="d-flex align items-center justify-content-between mx-5">
-                <div>
-                    <h2>List of Nominees to Recommend</h2>
-                </div>
+            <div class="col-md-6">
+                <table class="table">
+                    <div>
+                        <h2>List of Nominees to Recommend</h2>
+                    </div>
+                    <thead>
+                        <tr>
+                            <th>Nominee Name</th>
+                            <th>Nominator</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for nominee in all_nominees_nominator %}
+                        <tr>
+                            <td>{{ nominee.first_name}} {{ nominee.last_name}}</td>
+                            <td>{{ nominee.nominator.full_name }}</td>
+                            <td>
+                                <a class="btn btn-success" href="/nominee/{{nominee.id}}/nomination/info">View</a>
+                                <a  class="btn btn-warning" href="/recommend/new">+ Recommend</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-        </div>
-
-
-        <div class="row">
-            <table class="table">
-                <thead>
-                    <tr>
-                      <th>Nominee Name</th>
-                      <th>Nominator</th>
-                      <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    {% for nominee in all_nominees_nominator %}
-                      <td>{{ nominee.first_name}} {{ nominee.last_name}}</td>
-                      <td>{{ nominee.nominator.full_name }}</td>
-                      <td>
-                        <a class="btn btn-success" href="/nominee/{{nominee.id}}/info">View</a>
-                        <a  class="btn btn-warning" href="/recommend/new">+ Recommend</a>
-                        </td>
-                      </tr>
+            <div class="col-md-6">
+                <table class="table">
+                    <div>
+                        <h2> My Recommendations</h2>
+                    </div>
+                    <thead>
+                        <tr>
+                            <th>Nominee Name</th>
+                            <th>Nominee Department</th>
+                            <th>Recommender</th>
+                            <th>Work Contributions</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for nominee in all_nominees_recommender %}
+                        {% if nominee.recommender.user_id == session['uuid'] %}
+                        <tr>
+                            <td>{{ nominee.full_name }}</td>
+                            <td>{{  nominee.department_name  }}</td>
+                            {% if user.id == session['uuid'] %}
+                            <td> {{  user.full_name }} </td>
+                            {% endif %}
+                            <td>{{  nominee.recommender.work_contributions }}</td>
+                            <td>
+                                <a class="btn btn-primary" href="/recommender/{{nominee.recommender.id}}/recommendation/info">View</a>
+                                <a class="btn btn-primary" href="/recommender/{{nominee.recommender.id}}/edit/nominee">Edit</a>
+                                <a class="btn btn-danger" href="/recommender/{{nominee.recommender.id}}/delete/nominee">Delete</a>
+                            </td>
+                        </tr>
+                        {% endif %}
                     {% endfor %}
-                  </tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>
 </html>
-

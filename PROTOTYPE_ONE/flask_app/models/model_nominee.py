@@ -7,9 +7,9 @@ import re # importing regax
 from flask_app.models import model_user # imported file for relationships query ( 1 to Many)
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
-DATABASE = "wdc_prototype_full_recommender_one_db"
 
 
+DATABASE = "wdc_talent_review_new_final_product_complete_db"
 # Creating a class Nominee with a list of dictionaries(attributes)
 class Nominee:
     def __init__( self , data):
@@ -65,7 +65,7 @@ class Nominee:
         return False
         # to display info we need to feed an id by going to nominees.html and creating a <a>link in the for loop give it a <th> as well
 
-    
+
 # #Read All Basic no need to pass in data 
     @classmethod
     def get_all_nominees(cls): # Getting all of the nominees
@@ -77,6 +77,7 @@ class Nominee:
                 all_nominees.append( cls(nominee_single) )
             return all_nominees # now we return the list of dictionaries
         return False
+
 
 #Read All DOESN'T need DATA passed in the parameter From JOINS (Relationship One to Many)
     @classmethod
@@ -96,7 +97,8 @@ class Nominee:
                 nominee = cls(dict)
                     # Creating instance of User
                 user_data = {   
-                    # Relabeling all same attributes between tables / Classes 
+                    # Relabeling all same attributes between tables / Classes
+                    # left side the key is the name used to access through jinja2 and right side is value from data
                     'id': dict['users.id'],
                     'first_name': dict['users.first_name'], 
                     'last_name': dict['users.last_name'],
@@ -122,6 +124,64 @@ class Nominee:
 
 
 
+    #READ Nominees FULL INFORMATION BY NOMINEE_ID FOR REVIEW COMMITTEE
+    @classmethod
+    def get_nomiees_full_review_by_nominee_id(cls, nominee_id):
+        query = """
+        SELECT 
+            n.id AS nominee_id,
+            n.first_name AS nominee_first_name,
+            n.last_name AS nominee_last_name,
+            n.email AS nominee_email,
+            n.department_name AS nominee_department_name,
+            n.job_category AS nominee_job_category,
+            n.nominator_qualification,
+            edu.college_name, edu.location, edu.degree, edu.program, edu.graduation_year,
+            prof.employer, prof.title, prof.start_year, prof.end_year, prof.principal_job_function, prof.principal_responsibility,
+            act.nominator_activity_name, act.nominator_activity_year, act.nominator_activity_description, 
+            act.nominee_activity_name, act.nominee_activity_year, act.nominee_activity_description,
+            aw.nominator_award_name, aw.nominator_award_year, aw.nominator_award_description, 
+            aw.nominee_award_name, aw.nominee_award_year, aw.nominee_award_description,
+            rec.work_contributions,
+            ind.ic_q1 AS individual_q1, ind.ic_q2 AS individual_q2, ind.ic_q3 AS individual_q3, ind.ic_q4 AS individual_q4, ind.ic_q5 AS individual_q5,
+            pmc.prjmc_q1 AS project_q1, pmc.prjmc_q2 AS project_q2, pmc.prjmc_q3 AS project_q3, pmc.prjmc_q4 AS project_q4, pmc.prjmc_q5 AS project_q5,
+            plc.pplmc_q1 AS people_q1, plc.pplmc_q2 AS people_q2, plc.pplmc_q3 AS people_q3, plc.pplmc_q4 AS people_q4, plc.pplmc_q5 AS people_q5,
+            u.first_name AS nominator_first_name, u.last_name AS nominator_last_name,
+            u2.first_name AS recommender_first_name, u2.last_name AS recommender_last_name
+        FROM nominees n
+        JOIN users u ON n.user_id = u.id
+        LEFT JOIN nominees_educations_histories edu ON n.id = edu.nominee_id
+        LEFT JOIN nominees_professionals_histories prof ON n.id = prof.nominee_id
+        LEFT JOIN activities_qualifications_forms act ON n.id = act.nominee_id
+        LEFT JOIN awards_qualifications_forms aw ON n.id = aw.nominee_id
+        LEFT JOIN recommenders rec ON n.id = rec.nominee_id
+        LEFT JOIN users u2 ON rec.user_id = u2.id
+        LEFT JOIN individuals_contributions_forms ind ON rec.id = ind.recommender_id
+        LEFT JOIN projects_managers_contributions_forms pmc ON rec.id = pmc.recommender_id
+        LEFT JOIN peoples_managers_contributions_forms plc ON rec.id = plc.recommender_id
+        WHERE n.id = %(nominee_id)s;
+        """
+        data = {"nominee_id": nominee_id}
+        try:
+            results = connectToMySQL(DATABASE).query_db(query, data)
+            if results:
+                return results[0]  # Return the first result if expecting only one row per nominee
+            else:
+                return None  # Return None if no results found
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return None  # Return None or handle the error as appropriate
+
+
+
+
+
+
+
+
+
+
+
 ############################################# UPDATE (Returns No DATA) #############################################
     #Update Nominee by ID 
     @classmethod
@@ -131,8 +191,10 @@ class Nominee:
 
 
 ############################################# DELETE (Returns No DATA) #############################################
+############################################# DELETE (Returns No DATA) #############################################
+# Delete a Nominee 
     @classmethod
-    def delete_one(cls, data):
+    def delete_one_nominee(cls, data):
         query = "DELETE FROM nominees WHERE id=%(id)s;"
         # if we're DELETING it doesn't return anything back if it's successful
         return connectToMySQL(DATABASE).query_db(query, data)
@@ -140,22 +202,23 @@ class Nominee:
 
 
 ############################################# VALIDATION #############################################
+############################################# VALIDATION #############################################
 
 #VALIDATION FOR NOMINEE FORM ##########################
     @staticmethod
     def validator_nominee_info(data):
         is_valid = True
 
-        if len(data['first_name']) < 1:
+        if len(data['first_name']) < 3:
             flash('field is required', 'err_nominees_first_name_nominator')
             is_valid = False
-        if len(data['last_name']) < 1:
+        if len(data['last_name']) < 3:
             flash('field is required', 'err_nominees_last_name_nominator')
             is_valid = False
-        if len(data['department_name']) < 1:
+        if len(data['department_name']) < 3:
             flash('field is required', 'err_nominees_department_name_nominator')
             is_valid = False
-        if len(data['job_category']) < 1:
+        if len(data['job_category']) < 3:
             flash('field is required', 'err_nominees_job_category_nominator')
             is_valid = False
         if len(data['email']) < 1:
@@ -166,7 +229,7 @@ class Nominee:
             flash("Invalid Email!!",'err_nominees_email_nominator')
             is_valid = False
 
-        if len(data['nominator_qualification']) < 1:
+        if len(data['nominator_qualification']) < 3:
             flash('field is required', 'err_nominees_nominator_qualification_nominator')
             is_valid = False
 

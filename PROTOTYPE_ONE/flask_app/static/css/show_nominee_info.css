@@ -1,0 +1,52 @@
+/* Basic body styling for overall font and background */
+body {
+    font-family: 'Arial', sans-serif; /* Standard web font */
+    background-color: #121212; /* Dark background for the main body */
+    color: #e0e0e0; /* Light grey text color for contrast */
+    margin-top: 20px; /* Adds a little space at the top of the content */
+}
+
+/* Card styling for sections containing information */
+.card {
+    background-color: #1e1e1e; /* Slightly lighter dark shade for the card */
+    border: none; /* No borders for a cleaner look */
+    border-radius: 10px; /* Rounded corners for the card */
+    box-shadow: 0 0 15px rgba(0,0,0,0.2); /* Subtle shadow for 3D effect */
+}
+
+/* Card headers with a gradient background */
+.card-header {
+    background: linear-gradient(45deg, #6a5acd, #ff1493, #00bfff); /* Gradient color starting from purple to pink to blue */
+    color: #ffffff; /* White text color for the header */
+    font-size: 1.5rem; /* Larger text for headers */
+    border-radius: 10px 10px 0 0; /* Rounded corners on top of the card */
+}
+
+/* Styling for paragraphs inside the card */
+.card-body p {
+    line-height: 1.6; /* More readable line spacing */
+    color: #e0e0e0; /* Light grey text color for readability */
+}
+
+/* Primary button styling */
+.btn-primary {
+    background-color: #6a5acd; /* Soft purple background for primary buttons */
+    border-color: #6a5acd; /* Matching border color */
+}
+
+/* Hover effect for primary buttons */
+.btn-primary:hover {
+    background-color: #ff1493; /* Soft pink background on hover */
+    border-color: #ff1493; /* Matching border color on hover */
+}
+
+/* Navbar styling at the top of the page */
+.navbar {
+    background-color: #1e1e1e; /* Dark background for navbar */
+    border-bottom: 1px solid #333; /* Subtle border for the bottom of the navbar */
+}
+
+/* Navbar brand styling for the user's welcome message */
+.navbar .navbar-brand strong {
+    color: #00bfff; /* Light blue color for the user's name */
+}

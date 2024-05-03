@@ -5,106 +5,212 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Nominee</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
 </head>
 <body>
     <div class="container">
-        
-        <div class="col-14 p-2">
-            <legend class="d-flex justify-content-around">New Nominee Form Information</legend>
-        </div>
+        <h1>New Nominee Form</h1>
+        <form action="/nominee/create" method="post">
+            <!-- Nominee Information -->
+            <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_first_name_nominator"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_last_name_nominator"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="department_name">Department Name:</label>
+                <input type="text" class="form-control" id="department_name" name="department_name" placeholder="Department Name" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_department_name_nominator"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="job_category">Job Category:</label>
+                <input type="text" class="form-control" id="job_category" name="job_category" placeholder="Job Category" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_job_category_nominator"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_email_nominator"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="nominator_qualification">Nominator Qualification:</label>
+                <textarea class="form-control" id="nominator_qualification" name="nominator_qualification" placeholder="Describe your qualifications..." required></textarea>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_nominator_qualification_nominator"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
 
-            <div class="d-flex justify-content-center">
-                <form  action="/nominee/create" method="post"class="bg-light text-dark">
-                        <div class="d-flex justify-content-center">
-                        <fieldset>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="first_name"> Nominee First Name</label>
-                                <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                <input  name="first_name" id="first_name" placeholder="Nominee First Name" class="form-control"  type="text">
-                                </div>
-                                {% for message in get_flashed_messages(category_filter=["err_nominees_first_name_nominator"]) %}
-                                <p class="alert alert-danger"> {{ message }}</p>
-                                {% endfor %}
-                                </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" > Nominee Last Name</label>
-                                <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                <input name="last_name" id="last_name" placeholder="Nominee Last Name" class="form-control"  type="text">
-                                </div>
-                                {% for message in get_flashed_messages(category_filter=["err_nominees_last_name_nominator"]) %}
-                                <p class="alert alert-danger"> {{ message }}</p>
-                                {% endfor %}
-                                </div>
-                            </div>
+            <!-- Activities and Qualifications -->
+            <div class="form-group">
+                <label for="nominator_activity_name">Nominator Activity Name:</label>
+                <input type="text" class="form-control" id="nominator_activity_name" name="nominator_activity_name" placeholder="Nominator Activity Name" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_nominator_activity_name"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="nominator_activity_year">Nominator Activity Year:</label>
+                <input type="number" class="form-control" id="nominator_activity_year" name="nominator_activity_year" placeholder="Activity Year" min="1900" max="2024" required>
+            </div>
+            <div class="form-group">
+                <label for="nominator_activity_description">Nominator Activity Description:</label>
+                <textarea class="form-control" id="nominator_activity_description" name="nominator_activity_description" placeholder="Describe the activity..." required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="nominee_qualification">Nominee Qualification:</label>
+                <textarea class="form-control" id="nominee_qualification" name="nominee_qualification"  placeholder="Describe your Nominee qualifications..." required></textarea>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_nominee_qualification"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="nominee_activity_name">Nominee Activity Name:</label>
+                <input type="text" class="form-control" id="nominee_activity_name" name="nominee_activity_name"  placeholder="Activity Name" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_nominee_activity_name"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="nominee_activity_year">Nominee Activity Year:</label>
+                <input type="number" class="form-control" id="nominee_activity_year" name="nominee_activity_year"  placeholder="Activity Year" min="1900" max="2024" required>
+            </div>
+            <div class="form-group">
+                <label for="nominee_activity_description">Nominee Activity Description:</label>
+                <textarea class="form-control" id="nominee_activity_description" name="nominee_activity_description" placeholder="Describe the activity..."></textarea>
+            </div>
 
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" > Nominee Dept Name</label>
-                                <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                <input name="department_name" id="department_name" placeholder="Nominee Department Name" class="form-control"  type="text">
-                                </div>
-                                {% for message in get_flashed_messages(category_filter=["err_nominees_department_name_nominator"]) %}
-                                <p class="alert alert-danger"> {{ message }}</p>
-                                {% endfor %}
-                                </div>
-                            </div>
+            <!-- Awards and Qualifications -->
+            <div class="form-group">
+                <label for="nominator_award_name">Nominator Award Name:</label>
+                <input type="text" class="form-control" id="nominator_award_name" name="nominator_award_name" placeholder="Award Name" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_nominator_award_name"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="nominator_award_year">Nominator Award Year:</label>
+                <input type="number" class="form-control" id="nominator_award_year" name="nominator_award_year"  placeholder="Award Year" min="1900" max="2024" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_nominator_award_year"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="nominator_award_description">Nominator Award Description:</label>
+                <textarea class="form-control" id="nominator_award_description" name="nominator_award_description" placeholder="Describe the award..." required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="nominee_award_name">Nominee Award Name:</label>
+                <input type="text" class="form-control" id="nominee_award_name" name="nominee_award_name"  placeholder="Award Name" required>
+            </div>
+            <div class="form-group">
+                <label for="nominee_award_year">Nominee Award Year:</label>
+                <input type="number" class="form-control" id="nominee_award_year" name="nominee_award_year"  placeholder="Award Year" min="1900" max="2024" required>
+            </div>
+            <div class="form-group">
+                <label for="nominee_award_description">Nominee Award Description:</label>
+                <textarea class="form-control" id="nominee_award_description" name="nominee_award_description" placeholder="Describe the award..." required></textarea>
+            </div>
 
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" > Nominee Job Category </label>
-                                <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                <input name="job_category" id="job_category" placeholder="Nominee Job Category" class="form-control"  type="text">
-                                </div>
-                                {% for message in get_flashed_messages(category_filter=["err_nominees_job_category_nominator"]) %}
-                                <p class="alert alert-danger"> {{ message }}</p>
-                                {% endfor %}
-                                </div>
-                            </div>
+            <!-- Education History -->
+            <div class="form-group">
+                <label for="college_name">College Name:</label>
+                <input type="text" class="form-control" id="college_name" name="college_name" placeholder="College Name" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_college_name"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" class="form-control" id="location" name="location" placeholder="Location" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_location"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="degree">Degree:</label>
+                <input type="text" class="form-control" id="degree" name="degree" placeholder="Degree" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_degree"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="program">Program:</label>
+                <input type="text" class="form-control" id="program" name="program" placeholder="Program" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_program"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="graduation_year">Graduation Year:</label>
+                <input type="number" class="form-control" id="graduation_year" name="graduation_year" placeholder="Graduation Year" min="1920" max="2025" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_graduation_year"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
 
-                            <div class="form-group">
-                                <label class="col-md-4 control-label"> Nominee E-Mail</label>
-                                <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                <input name="email" id="email" placeholder="E-Mail Address" class="form-control"  type="text">
-                                </div>
-                                {% for message in get_flashed_messages(category_filter=["err_nominees_email_nominator"]) %}
-                                <p class="alert alert-danger"> {{ message }}</p>
-                                {% endfor %}
-                                </div>
-                            </div>
+            <!-- Professional History -->
+            <div class="form-group">
+                <label for="employer">Employer:</label>
+                <input type="text" class="form-control" id="employer" name="employer" placeholder="Employer" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_employer"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_title"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="start_year">Start Year:</label>
+                <input type="number" class="form-control" id="start_year" name="start_year" placeholder="Start Year" min="1950" max="2024" required>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_start_year"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="end_year">End Year:</label>
+                <input type="number" class="form-control" id="end_year" name="end_year" placeholder="End Year" min="1950" max="2024">
+                {% for message in get_flashed_messages(category_filter=["err_nominees_end_year"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="principal_job_function">Principal Job Function:</label>
+                <textarea class="form-control" id="principal_job_function" name="principal_job_function" placeholder="Principal Job Function" required></textarea>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_principal_job_function"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="principal_responsibility">Principal Responsibility:</label>
+                <textarea class="form-control" id="principal_responsibility" name="principal_responsibility" placeholder="Principal Responsibility" required></textarea>
+                {% for message in get_flashed_messages(category_filter=["err_nominees_principal_responsibility"]) %}
+                    <p class="alert alert-danger">{{ message }}</p>
+                {% endfor %}
+            </div>
 
-                            <div class="form-group">
-                                <label class="col-md-4 control-label"> What qualifications and attributes distinguish you as a suitable nominator for endorsing this nominee?</label>
-                                <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                <textarea class="form-control" name="nominator_qualification" id="nominator_qualification" placeholder="Your Project Description"></textarea>
-                                </div>
-                                {% for message in get_flashed_messages(category_filter=["err_nominees_nominator_qualification_nominator"]) %}
-                                <p class="alert alert-danger"> {{ message }}</p>
-                                {% endfor %}
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-md-4 control-label"></label>
-                                <div class="col-md-4">
-                                <button type="submit" class="btn btn-success" >Submit New Nominee</button>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                    <div class="col-md-4">
-                        <a class="btn btn-warning" href="/nominee/dashboard">Back</a>
-                    </div>
-                </div>
-                </form>
-            
-            
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="/nominee/dashboard" class="btn btn-secondary">Back</a>
+        </form>
     </div>
 </body>
 </html>

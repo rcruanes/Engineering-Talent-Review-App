@@ -1,21 +1,20 @@
 from flask_app.config.mysqlconnection import connectToMySQL # Connecting to the DB
 from flask import flash # importing flash
-
 from flask_app.models import model_user, model_nominee, model_recommender #importing necessary model files for relationships
 
 
 DATABASE = "wdc_talent_review_new_final_product_complete_db"
 
-# Individual Work contribution Class filled out by the Recommender
-class IndividualContributionForm:
+# People Manager Contribution Class filled out by the Recommender
+class PeopleManagerContributionForm:
     def __init__(self, data):
         self.id = data['id']
         self.recommender_id = data['recommender_id']
-        self.ic_q1 = data['ic_q1']
-        self.ic_q2 = data['ic_q2']
-        self.ic_q3 = data['ic_q3']
-        self.ic_q4 = data['ic_q4']
-        self.ic_q5 = data['ic_q5']
+        self.pplmc_q1 = data['pplmc_q1']
+        self.pplmc_q2 = data['pplmc_q2']
+        self.pplmc_q3 = data['pplmc_q3']
+        self.pplmc_q4 = data['pplmc_q4']
+        self.pplmc_q5 = data['pplmc_q5']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
@@ -31,16 +30,15 @@ class IndividualContributionForm:
 
 
 ############################################# CREATE / Insert Takes in Argument (cls, data) and Returns (an int as which is Id) #############################################
-# Create Individual Work contribution Form
+# Create People Manager contribution Form
     @classmethod
-    def create_individual_contribution(cls, data): # takes in two arguments cls and data
-        # Insert query to save data from form to database which returns the Id number of the row inserted 
-        query = "INSERT INTO individuals_contributions_forms (recommender_id, ic_q1, ic_q2, ic_q3, ic_q4, ic_q5) VALUES ( %(recommender_id)s,%(ic_q1)s,%(ic_q2)s,%(ic_q3)s,%(ic_q4)s,%(ic_q5)s );"
+    def create_people_manager_contribution(cls,data): # takes in two arguments cls and data 
+        # Insert Query to save data from form to database 
+        query = " INSERT INTO peoples_managers_contributions_forms (recommender_id, pplmc_q1, pplmc_q2, pplmc_q3, pplmc_q4, pplmc_q5) VALUES ( %(recommender_id)s,%(pplmc_q1)s,%(pplmc_q2)s,%(pplmc_q3)s,%(pplmc_q4)s,%(pplmc_q5)s ); "
         # explicitly storing the returned id of the inserted value 
-        individual_contribution_id = connectToMySQL(DATABASE).query_db(query, data)
+        people_manager_contribution_id = connectToMySQL(DATABASE).query_db(query, data)
         # retuns an id so make sure to use get method to retrieve the actual data for the object / instance
-        return individual_contribution_id
-
+        return people_manager_contribution_id
 
 
 
@@ -51,54 +49,35 @@ class IndividualContributionForm:
     @classmethod
     def get_one_by_recommender_id(cls, data):
         #query to Select all from recommender id
-        query = "SELECT * FROM individuals_contributions_forms WHERE recommender_id = %(recommender_id)s LIMIT 1;"
+        query = "SELECT * FROM peoples_managers_contributions_forms WHERE recommender_id = %(recommender_id)s LIMIT 1;"
         results = connectToMySQL(DATABASE).query_db(query, data)
         if results:
-            print('Get Answers By Recommender ID From Inividual Contribution', results)
+            print('Get Answers By Recommender ID From People Contribution', results)
             return cls(results[0])
         return None
 
 
 
-    #Read All the Individual Question Answers
+    # READ ALL of the People Manger Contribution Answers from Associated Recommender
     @classmethod
-    def get_all_individual_contributions(cls): # read all doesn't need data passed in
-        # Using Select * query to retrieve all the individual question answers
-        query = "SELECT * FROM individuals_contributions_forms;"
-        # Need to assign the values from the database to a variable
-        results = connectToMySQL(DATABASE).query_db(query)
-        if results:
-            # Create an empty list to store the list of objects / instances
-            all_individual_answers = []
-            # Now append the list of objects/ instances from cls
-            # Using for loop to append
-            for individual_question in results:
-                all_individual_answers.append(cls(individual_question))
-            return all_individual_answers # returns a list of objects
-        return False
-
-
-
-    # READ ALL of the Individual Work Contribution Answers from Associated Recommender
-    @classmethod
-    def get_all_individuals_contributions_from_recommender(cls): # read all doesn't need data passed in
-        # Query to Join the Indivisuals_questions table (Primary - leftside) with the Recommenders table (Secondary - rightside)
+    def get_all_peoples_managers_contributions_from_recommender(cls): # read all doesn't need data passed in
+        # Query to Join the peoples_managers_contributions_forms table (Primary - leftside) with the Recommenders table (Secondary - rightside)
         # to get the accsiated Recommenders with the form
         # This query returns data from the database as a LIST OF DICTIONARIES
-        # query = "SELECT * FROM recommenders JOIN individuals_questions on recommenders.id = individuals_questions.recommender_id;"
-        query = "SELECT * FROM individuals_contributions_forms JOIN recommenders on recommenders.id = individuals_contributions_forms.recommender_id;"
+        # query = "SELECT * FROM recommenders JOIN peoples_managers_contributions_forms on recommenders.id = individuals_questions.recommender_id;"
+        query = "SELECT * FROM peoples_managers_contributions_forms JOIN recommenders on recommenders.id = peoples_managers_contributions_forms.recommender_id;"
         results = connectToMySQL(DATABASE).query_db(query)
         # print(results)
 
         # check for results
         if results:
             # Create an empty list to append the returned objects later
-            # This is a list of all the answers for the IC questions by the recommenders
-            all_individuals_contributions_from_recommenders = []
+            # This is a list of all the answers for the peoples_managers_contributions_forms questions by the recommenders
+            all_peoples_managers_contributions_from_recommender = []
 
             # For loop to iterate over returned data from the database  
             for dict in results: #results contains the list of dictionaries objects / instances
-                nominee_individual_contribution = cls(dict) # Creating an instance of Individual Question
+                nominee_people_contribution = cls(dict) # Creating an instance of People Question
                 
                 # Now Creating an instance of Recommender to relable any shared attribute's name between the JOINED tables, individuals_questions & recommenders
                 # MUST relables are: id, created_at(), and updated_at() 
@@ -118,49 +97,54 @@ class IndividualContributionForm:
                 # Using the created individual_question instance we can now attach / call / add an attribute
                 # Instances are like dictionaries if the key doesn't exist then it'll add key to the dictionary
                 # In this case if the attribute doesn't exist then it'll add that attribute
-                nominee_individual_contribution.recommender = recommender
+                nominee_people_contribution.recommender = recommender
 
                 # Now append the individual_question instance to the empty list
-                all_individuals_contributions_from_recommenders.append(nominee_individual_contribution)
+                all_peoples_managers_contributions_from_recommender.append(nominee_people_contribution)
 
             # Returns list of objects after the loop completes
-            return all_individuals_contributions_from_recommenders
+            return all_peoples_managers_contributions_from_recommender
         
         # Returning an empty array / list when result is False so the code / website does't break
         return []
 
 
-############################################# UPDATE (Returns No DATA) #############################################
+
+
+
+
 ############################################# UPDATE (Returns No DATA) #############################################
     #Update One Form by ID 
     @classmethod
-    def update_one_individual_contribution_form(cls, data):
-        query = "UPDATE individuals_contributions_forms SET ic_q1=%(ic_q1)s, ic_q2=%(ic_q2)s, ic_q3 = %(ic_q3)s, ic_q4=%(ic_q4)s,ic_q5=%(ic_q5)s, updated_at=NOW() WHERE id = %(id)s;" 
+    def update_one_people_manager_contribution_form(cls, data):
+        query = "UPDATE peoples_managers_contributions_forms SET pplmc_q1=%(pplmc_q1)s, pplmc_q2=%(pplmc_q2)s, pplmc_q3=%(pplmc_q3)s, pplmc_q4=%(pplmc_q4)s, pplmc_q5=%(pplmc_q5)s, updated_at=NOW() WHERE id = %(id)s;" 
         return connectToMySQL(DATABASE).query_db(query, data)
 
 
 
+
+
 ############################################# DELETE (Returns No DATA but NEEDS it for PARAMETERS) #############################################
 ############################################# DELETE (Returns No DATA but NEEDS it for PARAMETERS) #############################################
-# Check if Nominee Id exist
+# Check if Recommender Id exist
     @classmethod
     def check_exists_by_recommender_id(cls, data):
-        query = "SELECT COUNT(*) AS count FROM individuals_contributions_forms WHERE recommender_id=%(recommender_id)s;"
+        query = "SELECT COUNT(*) AS count FROM peoples_managers_contributions_forms WHERE recommender_id=%(recommender_id)s;"
         result = connectToMySQL(DATABASE).query_db(query, data)
         return result[0]['count'] > 0
 
-# Delete by Nominee Id
+# Delete by Recommender Id
     @classmethod
     def delete_by_recommender_id(cls, data):
-        query = "DELETE FROM individuals_contributions_forms WHERE recommender_id=%(recommender_id)s;"
+        query = "DELETE FROM peoples_managers_contributions_forms WHERE recommender_id=%(recommender_id)s;"
         return connectToMySQL(DATABASE).query_db(query, data)
     
 
 
-# Delete Recommendation(id) 
+# Delete by (id) 
     @classmethod
     def delete_one_recomendation(cls, data):
-        query = "DELETE FROM recommenders WHERE id=%(id)s;"
+        query = "DELETE FROM peoples_managers_contributions_forms WHERE id=%(id)s;"
         # DELETING it doesn't return anything back if it's successful
         return connectToMySQL(DATABASE).query_db(query, data)
 
@@ -169,17 +153,13 @@ class IndividualContributionForm:
 
 
 
-
-
-
 ############################################# VALIDATION #############################################
 
-#VALIDATION FOR NOMINEE FORM ##########################
+#VALIDATION FOR Recommender FORM ##########################
     @staticmethod
-    def validator_individual_contribution_info(data):
+    def validator_people_manager_contribution_info(data):
         is_valid = True
-        if len(data['ic_q1']) < 1:
-            flash('field is required', 'err_nominees_ic_q1_recommender')
+        if len(data['pplmc_q1']) < 1:
+            flash('field is required', 'err_nominees_pplmc_q1_recommender')
             is_valid = False
         return is_valid
-    
